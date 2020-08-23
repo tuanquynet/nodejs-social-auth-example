@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 module.exports = {
-  getFacebookLogin: [passport.authenticate("facebook")],
+  getFacebookLogin: [passport.authenticate("facebook", {scope: ['email']})],
 
   handleFacebookLogin: [
     passport.authenticate("facebook", {

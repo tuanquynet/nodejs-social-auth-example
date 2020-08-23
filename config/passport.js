@@ -26,13 +26,16 @@ module.exports = function (passport) {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
         callbackURL: process.env.FACEBOOK_APP_CALLBACK_URL,
+        profileFields: ['id', 'displayName', 'photos', 'email'],
       },
       async function (accessToken, refreshToken, profile, cb) {
+        const {value: email} = (profile.emails || [])[0] || {}
         const [user, status] = await User.findOrCreate({
           where: {
             social_user_id: profile.id,
             name: profile.displayName,
             registration_type: "facebook",
+            ...(email ? {email} : {})
           },
         });
         cb(null, user);
