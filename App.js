@@ -15,19 +15,19 @@ const { getFacebookLogin, handleFacebookLogin } = require('./routes/facebook_log
 const { getGoogleLogin, handleGoogleLogin } = require('./routes/google_login');
 const { getRegister, submitRegister } = require('./routes/register');
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
-db.connect((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('connected to database');
-});
-global.db = db;
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_NAME
+// });
+// db.connect((err) => {
+//     if (err) {
+//         throw err;
+//     }
+//     console.log('connected to database');
+// });
+// global.db = db;
 
 app.set('port', process.env.PORT);
 app.set('views', __dirname + '/views');

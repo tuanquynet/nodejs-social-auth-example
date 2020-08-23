@@ -30,14 +30,24 @@ module.exports = function (passport) {
       },
       async function (accessToken, refreshToken, profile, cb) {
         const {value: email} = (profile.emails || [])[0] || {}
-        const [user, status] = await User.findOrCreate({
-          where: {
-            social_user_id: profile.id,
-            name: profile.displayName,
-            registration_type: "facebook",
-            ...(email ? {email} : {})
-          },
-        });
+        // // Add code to find and insert user
+        // const [user, status] = await User.findOrCreate({
+        //   where: {
+        //     social_user_id: profile.id,
+        //     name: profile.displayName,
+        //     registration_type: "facebook",
+        //     ...(email ? {email} : {})
+        //   },
+        // });
+        // For no-db case
+        const user = {
+          social_user_id: profile.id,
+          name: profile.displayName,
+          registration_type: "facebook",
+          ...(email ? {email} : {})
+        }
+        console.log('created user')
+        console.log(user)
         cb(null, user);
       }
     )
